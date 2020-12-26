@@ -291,6 +291,11 @@ public struct Cell: Hashable {
     public var row: Int
     public var col: Int
     
+    public init(row: Int, col: Int) {
+        self.row = row
+        self.col = col
+    }
+    
     public func hash(into hasher: inout Hasher) {
         hasher.combine(row)
         hasher.combine(col)
