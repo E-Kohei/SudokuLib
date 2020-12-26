@@ -36,7 +36,7 @@ public class Sudoku: CustomStringConvertible, Hashable {
     private var numbers = [[Int]]()         // numbers of sudoku
                                             // 0 means blank
     private var fixedNumbers = [[Bool]]()   // bool matrix that denies change of numbers
-    private(set) var size: Int                   // size of one block
+    public private(set) var size: Int                   // size of one block
     
     /**
      Constructor to make initialized sudoku (all numbers are 0)
