@@ -173,6 +173,52 @@ public func permuteOneBlockCol(sudoku: Sudoku, bCol: Int, permutation: [Int:Int]
 }
 
 
+/**
+ Create contradiction matrix of the sudoku, whose element indicates whether the number at the cell
+ duplicates another cell's number in the same row, column or block.
+ */
+public func findContradictions(sudoku: Sudoku) -> [[Bool]] {
+    let size = sudoku.size
+    let ss = size * size
+    var contradictionM = Array(repeating: Array(repeating: false, count: ss), count: ss)
+    
+    for k in 0..<ss {
+        var indicators: [Bool]
+        
+        // check same numbers in the row
+        indicators = findDuplicateNumbersInArray(array: sudoku.getRow(row: k))
+        for l in 0..<ss {
+            if indicators[l] {
+                contradictionM[k][l] = indicators[l]
+            }
+        }
+        
+        // check same numbers in the column
+        indicators = findDuplicateNumbersInArray(array: sudoku.getCol(col: k))
+        for l in 0..<ss {
+            if indicators[l] {
+                contradictionM[l][k] = indicators[l]
+            }
+        }
+        
+        // check same numbers in the block
+        let startRow = size * (k / size)
+        let startCol = size * (k % size)
+        indicators = findDuplicateNumbersInArray(array: sudoku.getBlockAsArray(block: k))
+        for l1 in 0..<size {
+            for l2 in 0..<size {
+                if indicators[size*l1 + l2] {
+                    contradictionM[startRow+l1][startCol+l2] = indicators[size*l1 + l2]
+                }
+            }
+        }
+        
+    }
+    
+    return contradictionM
+}
+
+
 // Check if the given permutation is valid
 private func isValidPermutation(_ permutation: [Int:Int], from: Int, through: Int) -> Bool {
     if permutation.count != through - from + 1 {
@@ -193,3 +239,24 @@ private func isValidPermutation(_ permutation: [Int:Int], from: Int, through: In
     return true
 }
 
+// True if a number is same as some of others
+private func findDuplicateNumbersInArray(array: [Int]) -> [Bool] {
+    let len = array.count
+    var sorted = [(index: Int, element: Int)]()
+    for (n,x) in array.enumerated() {
+        sorted.append((n,x))
+    }
+    sorted.sort(by: { return $0.element < $1.element })
+    var indicators = Array(repeating: false, count: array.count)
+    
+    // now, find duplicate numbers
+    for i in 1..<len {
+        let prev = sorted[i-1]
+        let next = sorted[i]
+        if prev.element == next.element {
+            indicators[prev.index] = true
+            indicators[next.index] = true
+        }
+    }
+    return indicators
+}
