@@ -70,6 +70,21 @@ final class SudokuTests: XCTestCase {
             
             XCTAssert(sudoku2.getBlockNumberFromLoc(row: 7, col: 7) == 8)
             
+            sudoku2.fixNumbers()
+            XCTAssert(sudoku2.isFixedCell(row: 0, col: 1) == true)
+            XCTAssert(sudoku2.isFixedCell(row: 2, col: 2) == true)
+            XCTAssert(sudoku2.isFixedCell(row: 5, col: 6) == false)
+            
+            sudoku2.setNumber(row: 0, col: 7, number: 5)
+            sudoku2.setNumber(row: 3, col: 2, number: 9)
+            XCTAssert(sudoku2[0,7] == 5)
+            XCTAssert(sudoku2[3,2] == 9)
+            sudoku2.resetSudoku()
+            XCTAssert(sudoku2[0,7] == 0)
+            XCTAssert(sudoku2[3,2] == 0)
+            sudoku2.resetFixedNumbers()
+            XCTAssert(sudoku2.isFixedCell(row: 1, col: 6) == false)
+            
         }
         catch let e as InvalidMatrixSizeError {
             print(e.message)

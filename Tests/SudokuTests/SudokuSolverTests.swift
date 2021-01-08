@@ -382,7 +382,10 @@ final class SudokuSolverTests: XCTestCase {
         let result8 = solveSudokuWithTrials(sudoku: sudoku5)
         XCTAssert(result8.status == .solvable)
         print("answer of solveSudokuWithTrials 1: ")
-        print(result8.answer)
+        if let ans = result8.answer {
+            print(ans)
+        }
+        
         
         
         let nums7 = [
@@ -417,7 +420,10 @@ final class SudokuSolverTests: XCTestCase {
         let result7_3 = solveSudokuWithTrials(sudoku: sudoku7_2)
         XCTAssert(result7_3.status == .solvable)
         print("answer of solveSudoku 7_3: ")
-        print(result7_3.answer)
+        if let ans = result7_3.answer {
+            print(ans)
+        }
+        
         
         
         let nums6 = [

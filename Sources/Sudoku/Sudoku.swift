@@ -134,6 +134,7 @@ public class Sudoku: CustomStringConvertible, Hashable {
     /**
      sets n at numbers[i][j] if the cell is not fixed and return whether succeeded
      */
+    @discardableResult
     public func setNumber(row: Int, col: Int, number: Int) -> Bool {
         if (!fixedNumbers[row][col]) {
             numbers[row][col] = number
@@ -219,7 +220,7 @@ public class Sudoku: CustomStringConvertible, Hashable {
         for i in 0..<ss {
             for j in 0..<ss {
                 if numbers[i][j] != 0 {
-                    fixedNumbers[i][j] = false
+                    fixedNumbers[i][j] = true
                 }
             }
         }
@@ -244,7 +245,7 @@ public class Sudoku: CustomStringConvertible, Hashable {
         let ss = size*size
         for i in 0..<ss {
             for j in 0..<ss {
-                if fixedNumbers[i][j] {
+                if !fixedNumbers[i][j] {
                     numbers[i][j] = 0
                 }
             }
