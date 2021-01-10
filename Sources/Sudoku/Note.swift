@@ -54,7 +54,7 @@ public struct Note: CustomStringConvertible, Hashable {
         self.size = size
         let ss = size*size
         if !checkSize(nums, ss) {
-            throw InvalidMatrixSizeError()
+            throw InvalidSudokuSizeError()
         }
         else {
             notes = nums

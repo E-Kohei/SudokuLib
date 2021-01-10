@@ -218,6 +218,49 @@ public func findContradictions(sudoku: Sudoku) -> [[Bool]] {
     return contradictionM
 }
 
+/**
+ Update contradiction matrix of the sudoku, whose element indicates whether the number at the cell
+ duplicates another cell's number in the same row, column or block.
+ If the size of the sudoku and that of contradiction matrix, this function fails.
+ */
+public func findContradictions(sudoku: Sudoku, contradictionMatrix: inout [[Bool]]) {
+    let size = sudoku.size
+    let ss = size * size
+    
+    for k in 0..<ss {
+        var indicators: [Bool]
+        
+        // check same numbers in the row
+        indicators = findDuplicateNumbersInArray(array: sudoku.getRow(row: k))
+        for l in 0..<ss {
+            if indicators[l] {
+                contradictionMatrix[k][l] = indicators[l]
+            }
+        }
+        
+        // check same numbers in the column
+        indicators = findDuplicateNumbersInArray(array: sudoku.getCol(col: k))
+        for l in 0..<ss {
+            if indicators[l] {
+                contradictionMatrix[l][k] = indicators[l]
+            }
+        }
+        
+        // check same numbers in the block
+        let startRow = size * (k / size)
+        let startCol = size * (k % size)
+        indicators = findDuplicateNumbersInArray(array: sudoku.getBlockAsArray(block: k))
+        for l1 in 0..<size {
+            for l2 in 0..<size {
+                if indicators[size*l1 + l2] {
+                    contradictionMatrix[startRow+l1][startCol+l2] = indicators[size*l1 + l2]
+                }
+            }
+        }
+        
+    }
+}
+
 
 // Check if the given permutation is valid
 private func isValidPermutation(_ permutation: [Int:Int], from: Int, through: Int) -> Bool {

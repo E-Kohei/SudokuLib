@@ -30,7 +30,7 @@ final class SudokuTests: XCTestCase {
             XCTAssert(sudoku.isSolved() == true)
             print(sudoku)
         }
-        catch let e as InvalidMatrixSizeError {
+        catch let e as InvalidSudokuSizeError {
             print(e.message)
         }
         catch {
@@ -86,7 +86,7 @@ final class SudokuTests: XCTestCase {
             XCTAssert(sudoku2.isFixedCell(row: 1, col: 6) == false)
             
         }
-        catch let e as InvalidMatrixSizeError {
+        catch let e as InvalidSudokuSizeError {
             print(e.message)
         }
         catch {

@@ -304,7 +304,7 @@ final class SudokuSolverTests: XCTestCase {
             print("answer of solveSudoku:")
             print(resultPair.answer)
         }
-        catch let e as InvalidMatrixSizeError {
+        catch let e as InvalidSudokuSizeError {
             print(e.message)
         }
         catch {

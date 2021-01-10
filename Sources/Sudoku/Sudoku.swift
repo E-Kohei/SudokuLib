@@ -59,7 +59,7 @@ public class Sudoku: CustomStringConvertible, Hashable {
         let ss = size*size
         
         if checkInvalidSize(nums, ss) {
-            throw InvalidMatrixSizeError()
+            throw InvalidSudokuSizeError()
         }
         else {
             numbers = nums
@@ -79,7 +79,7 @@ public class Sudoku: CustomStringConvertible, Hashable {
         let ss = size*size
         
         if checkInvalidSize(nums, ss) || checkInvalidSize(fnums, ss) {
-            throw InvalidMatrixSizeError()
+            throw InvalidSudokuSizeError()
         }
         else {
             numbers = nums
@@ -96,13 +96,6 @@ public class Sudoku: CustomStringConvertible, Hashable {
         hasher.combine(fixedNumbers)
     }
     
-    public func copy() -> Sudoku {
-        let s = Sudoku(size: self.size)
-        s.numbers = self.numbers
-        s.fixedNumbers = self.fixedNumbers
-        return s
-    }
-    
     public subscript(i: Int, j: Int) -> Int {
         get {
             return numbers[i][j]
@@ -112,6 +105,26 @@ public class Sudoku: CustomStringConvertible, Hashable {
         }
     }
     
+    /**
+     returns a copy of this sudoku
+     */
+    public func copy() -> Sudoku {
+        let s = Sudoku(size: self.size)
+        s.numbers = self.numbers
+        s.fixedNumbers = self.fixedNumbers
+        return s
+    }
+    
+    /**
+     copies a sudoku "from" to another sudoku "to" if they have same size, else throws an error.
+     */
+    class func copySudoku(from: Sudoku, to: Sudoku) throws {
+        if from.size != to.size {
+            throw InvalidSudokuSizeError(message: "Sudoku size mismatch")
+        }
+        to.numbers = from.numbers
+        to.fixedNumbers = from.fixedNumbers
+    }
     
     /**
      returns i-th row
@@ -304,8 +317,8 @@ public struct Cell: Hashable {
 }
 
 
-public struct InvalidMatrixSizeError: Error {
-    public let message = "Invalid size for sudoku"
+public struct InvalidSudokuSizeError: Error {
+    public var message = "Invalid size for sudoku"
 }
 
 
