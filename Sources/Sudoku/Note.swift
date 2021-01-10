@@ -37,7 +37,7 @@ public struct Note: CustomStringConvertible, Hashable {
                                     // 0 means blank
     private(set) var size: Int           // size of one block. So there are size*size rows and cols
     
-    /*
+    /**
      Constructor to make initialized note (all notes are 0)
      */
     public init(size: Int) {
@@ -47,7 +47,7 @@ public struct Note: CustomStringConvertible, Hashable {
             notes.append( Array(repeating: 0, count: ss) )
         }
     }
-    /*
+    /**
      Constructor to make note from 2d-array
      */
     public init(nums: [[Int]], size: Int) throws {
@@ -78,14 +78,14 @@ public struct Note: CustomStringConvertible, Hashable {
         }
     }
     
-    /*
+    /**
      returns i-th row
      */
     public func getRow(row: Int) -> [Int] {
         return notes[row]
     }
     
-    /*
+    /**
      returns j-th column
      */
     public func getCol(col: Int) -> [Int] {
@@ -96,7 +96,7 @@ public struct Note: CustomStringConvertible, Hashable {
         return column
     }
     
-    /*
+    /**
      returns note array at notes[row][col]
      */
     public func getNoteArray(row: Int, col: Int) -> [Int] {
@@ -109,7 +109,7 @@ public struct Note: CustomStringConvertible, Hashable {
         return noteIndicators
     }
     
-    /*
+    /**
      sets note array at notes[row][col]
      */
     public mutating func setNoteArray(row: Int, col: Int, noteIndicators: [Int]) {
@@ -121,7 +121,7 @@ public struct Note: CustomStringConvertible, Hashable {
         notes[row][col] = noteNumber
     }
     
-    /*
+    /**
      toggle note number m at (row,col)
      */
     public mutating func toggleNoteNumber(row: Int, col: Int, m: Int) {
@@ -136,7 +136,7 @@ public struct Note: CustomStringConvertible, Hashable {
         }
     }
     
-    /*
+    /**
      returns matrix of notes int b-th block
      */
     public func getBlock(block: Int) -> [[Int]] {
@@ -151,7 +151,7 @@ public struct Note: CustomStringConvertible, Hashable {
         return matrix
     }
     
-    /*
+    /**
      returns Array of notes in b-th block
      */
     public func getBlockAsArray(block: Int) -> [Int] {
@@ -164,13 +164,25 @@ public struct Note: CustomStringConvertible, Hashable {
         return array
     }
     
-    /*
+    /**
      sets matrix of notes in b-th block
      */
     public mutating func setBlock(block: Int, newBlock: [[Int]]) {
         for i in 0..<size {
             for j in 0..<size {
                 notes[i + size*(block/size)][j + size*(block%size)] = newBlock[i][j]
+            }
+        }
+    }
+    
+    /**
+     clear all notes, that is set all note numbers 0
+     */
+    public mutating func clear() {
+        let ss = size*size
+        for i in 0..<ss {
+            for j in 0..<ss {
+                notes[i][j] = 0
             }
         }
     }

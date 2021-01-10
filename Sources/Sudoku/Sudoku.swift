@@ -174,7 +174,7 @@ public class Sudoku: CustomStringConvertible, Hashable {
         return matrix
     }
     
-    /*
+    /**
      returns array of numbers in b-th block
      */
     public func getBlockAsArray(block: Int) -> [Int] {
@@ -187,7 +187,7 @@ public class Sudoku: CustomStringConvertible, Hashable {
         return array
     }
     
-    /*
+    /**
      sets matrix of numbers in b-th block
      */
     public func setBlock(block: Int, newBlock: [[Int]]) {
@@ -198,21 +198,21 @@ public class Sudoku: CustomStringConvertible, Hashable {
         }
     }
     
-    /*
+    /**
      fix the cell (row,col)
      */
     public func fixCell(row: Int, col: Int, isFixed: Bool) {
         fixedNumbers[row][col] = isFixed
     }
     
-    /*
+    /**
      return if the cell is fixed
      */
     public func isFixedCell(row: Int, col: Int) -> Bool {
         return fixedNumbers[row][col]
     }
     
-    /*
+    /**
      fix cells where some number is already set
      */
     public func fixNumbers() {
@@ -226,7 +226,7 @@ public class Sudoku: CustomStringConvertible, Hashable {
         }
     }
     
-    /*
+    /**
      reset fixedNumbers to allow any change
      */
     public func resetFixedNumbers() {
@@ -238,7 +238,7 @@ public class Sudoku: CustomStringConvertible, Hashable {
         }
     }
     
-    /*
+    /**
      reset sudoku, that is set all unfixed numbers 0
      */
     public func resetSudoku() {
@@ -252,7 +252,7 @@ public class Sudoku: CustomStringConvertible, Hashable {
         }
     }
     
-    /*
+    /**
      checks if the sudoku is already solved
      */
     public func isSolved() -> Bool {
