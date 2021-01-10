@@ -118,7 +118,7 @@ public class Sudoku: CustomStringConvertible, Hashable {
     /**
      copies a sudoku "from" to another sudoku "to" if they have same size, else throws an error.
      */
-    class func copySudoku(from: Sudoku, to: Sudoku) throws {
+    public class func copySudoku(from: Sudoku, to: Sudoku) throws {
         if from.size != to.size {
             throw InvalidSudokuSizeError(message: "Sudoku size mismatch")
         }

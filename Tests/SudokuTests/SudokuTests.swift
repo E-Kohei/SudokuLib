@@ -100,6 +100,22 @@ final class SudokuTests: XCTestCase {
         XCTAssert(Sudoku.getBlockNumberFromLoc(row: 3, col: 5, size: 3) == 4)
         XCTAssert(Sudoku.getBlockNumberFromLoc(row: 6, col: 8, size: 3) == 8)
         XCTAssert(Sudoku.getBlockNumberFromLoc(row: 11, col: 19, size: 5) == 13)
+        
+        let sudoku3 = Sudoku(size: 3)
+        let sudoku4 = Sudoku(size: 3)
+        sudoku3[1,3] = 8
+        try! Sudoku.copySudoku(from: sudoku3, to: sudoku4)
+        XCTAssert(sudoku4[1,3] == 8)
+        let sudoku5 = Sudoku(size: 5)
+        do {
+            try Sudoku.copySudoku(from: sudoku3, to: sudoku5)
+        }
+        catch let e as InvalidSudokuSizeError {
+            XCTAssert(e.message == "Sudoku size mismatch")
+        }
+        catch {
+            XCTAssert(true == false)
+        }
      }
 
     static var allTests = [

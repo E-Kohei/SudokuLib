@@ -135,7 +135,7 @@ final class SudokuManipulatorTests: XCTestCase {
         
         sudoku2[1,2] = 1
         sudoku2[10,7] = 9
-        let contradictions = findContradictions(sudoku: sudoku2)
+        var contradictions = findContradictions(sudoku: sudoku2)
         XCTAssert(contradictions[0][0] == true)
         XCTAssert(contradictions[1][2] == true)
         XCTAssert(contradictions[1][12] == true)
@@ -145,6 +145,12 @@ final class SudokuManipulatorTests: XCTestCase {
         XCTAssert(contradictions[10][14] == true)
         XCTAssert(contradictions[4][7] == true)
         XCTAssert(contradictions[8][6] == true)
+        
+        sudoku2[15,15] = 12
+        findContradictions(sudoku: sudoku2, contradictionMatrix: &contradictions)
+        XCTAssert(contradictions[15][15] == true)
+        XCTAssert(contradictions[3][15] == true)
+        XCTAssert(contradictions[15][12] == true)
     }
     
     static var allTests = [
