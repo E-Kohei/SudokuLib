@@ -1,3 +1,5 @@
 # Sudoku
 
-Simple sudoku utilities, including sudoku-solver, sudoku-maker, sudoku-manipulator, etc.
+Simple sudoku library written in Swift.
+
+This library includes sudoku-solver, sudoku-maker, sudoku-manipulator, etc.
